@@ -1,10 +1,5 @@
 <template>
-  <div
-    ref="ganttChart"
-    class="g-gantt-chart"
-    :style="{ width, background: colors.background, fontFamily: font }"
-  >
-    <g-gantt-timeaxis v-if="!hideTimeaxis">
+    <g-gantt-timeaxis v-if="!hideTimeaxis" @set_month="get_month($event.set_type)"   style="position: sticky; top: 0; z-index: 4;" width="100%">
       <template #upper-timeunit="{ label, value, date }">
         <!-- expose upper-timeunit slot of g-gantt-timeaxis-->
         <slot name="upper-timeunit" :label="label" :value="value" :date="date" />
@@ -14,6 +9,12 @@
         <slot name="timeunit" :label="label" :value="value" :date="date" />
       </template>
     </g-gantt-timeaxis>
+  <div
+    ref="ganttChart"
+    class="g-gantt-chart"
+    :style="{ width, background: colors.background, fontFamily: font }"
+  >
+  
 
     <g-gantt-grid v-if="grid" :highlighted-units="highlightedUnits" />
 
@@ -116,6 +117,10 @@ const emit = defineEmits<{
     e: "contextmenu-bar",
     value: { bar: GanttBarObject; e: MouseEvent; datetime?: string | Date }
   ): void
+  (
+    e: "change-month",
+    value: { changeType: string; }
+  ): void
 }>()
 
 const { width, font, colorScheme } = toRefs(props)
@@ -167,6 +172,9 @@ const initTooltip = (bar: GanttBarObject) => {
   tooltipBar.value = bar
 }
 
+const get_month = (typeMonth:string) => {
+  emit("change-month", { changeType:typeMonth })
+}
 const clearTooltip = () => {
   clearTimeout(tooltipTimeoutId)
   showTooltip.value = false
@@ -226,6 +234,7 @@ provide(CONFIG_KEY, {
   chartSize
 })
 provide(EMIT_BAR_EVENT_KEY, emitBarEvent)
+
 </script>
 
 <style>

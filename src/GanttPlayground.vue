@@ -3,12 +3,13 @@
     :chart-start="chartStart"
     :chart-end="chartEnd"
     precision="month"
-    :row-height="40"
+    :row-height="85"
     grid
     width="100%"
     bar-start="beginDate"
     bar-end="endDate"
     :date-format="format"
+    @change-month="getMonth($event.changeType)"
     @click-bar="onClickBar($event.bar, $event.e, $event.datetime)"
     @mousedown-bar="onMousedownBar($event.bar, $event.e, $event.datetime)"
     @dblclick-bar="onMouseupBar($event.bar, $event.e, $event.datetime)"
@@ -19,8 +20,17 @@
     @dragend-bar="onDragendBar($event.bar, $event.e, $event.movedBars)"
     @contextmenu-bar="onContextmenuBar($event.bar, $event.e, $event.datetime)"
   >
-    <g-gantt-row label="My row 1" :bars="bars1" highlight-on-hover />
-    <g-gantt-row label="My row 2" highlight-on-hover :bars="bars2" />
+    <g-gantt-row push-on-overlap subtitle="piso" label="My row 1" :bars="bars1" highlight-on-hover />
+    <g-gantt-row push-on-overlap subtitle="piso" label="My row 2" highlight-on-hover :bars="bars2" />
+    <g-gantt-row push-on-overlap subtitle="piso" label="My row 3" highlight-on-hover :bars="bars3" />
+    <g-gantt-row push-on-overlap subtitle="piso" label="My row 4" highlight-on-hover :bars="bars4" />
+    <g-gantt-row push-on-overlap subtitle="piso" label="My row 5" highlight-on-hover :bars="bars5" />
+    <g-gantt-row push-on-overlap subtitle="piso" label="My row 6" highlight-on-hover :bars="bars6" />
+    <g-gantt-row push-on-overlap subtitle="piso" label="My row 7" highlight-on-hover :bars="bars7" />
+    <g-gantt-row push-on-overlap subtitle="piso" label="My row 8" highlight-on-hover :bars="bars8" />
+    <g-gantt-row push-on-overlap subtitle="piso" label="My row 9" highlight-on-hover :bars="bars9" />
+    <g-gantt-row push-on-overlap subtitle="piso" label="My row 10" highlight-on-hover :bars="bars10" />
+    <g-gantt-row push-on-overlap subtitle="piso" label="My row 11" highlight-on-hover :bars="bars11" />
   </g-gantt-chart>
 
   <button type="button" @click="addBar()">Add bar</button>
@@ -37,26 +47,118 @@ const format = ref("DD.MM.YYYY HH:mm")
 
 const bars1 = ref<GanttBarObject[]>([
   {
-    beginDate: "24.04.2021 13:00",
+    beginDate: "23.04.2021 13:00",
     endDate: "25.05.2021 19:00",
     ganttBarConfig: {
       id: "8621987329",
       label: "I'm in a bundle",
-      bundle: "bundle2"
+      bundle: "bundle2",
+      hasHandles: true,
+    }
+  }
+])
+const bars3 = ref<GanttBarObject[]>([
+  {
+    beginDate: "24.04.2021 13:00",
+    endDate: "25.05.2021 19:00",
+    ganttBarConfig: {
+      id: "3",
+      label: "I'm in a bundle",
+    }
+  }
+])
+const bars4 = ref<GanttBarObject[]>([
+  {
+    beginDate: "24.04.2021 13:00",
+    endDate: "25.05.2021 19:00",
+    ganttBarConfig: {
+      id: "4",
+      label: "I'm in a bundle",
+    }
+  }
+])
+const bars5 = ref<GanttBarObject[]>([
+  {
+    beginDate: "24.04.2021 13:00",
+    endDate: "25.05.2021 19:00",
+    ganttBarConfig: {
+      id: "5",
+      label: "I'm in a bundle",
+    }
+  }
+])
+const bars6= ref<GanttBarObject[]>([
+  {
+    beginDate: "24.04.2021 13:00",
+    endDate: "25.05.2021 19:00",
+    ganttBarConfig: {
+      id: "6",
+      label: "I'm in a bundle",
+    }
+  }
+])
+const bars7 = ref<GanttBarObject[]>([
+  {
+    beginDate: "24.04.2021 13:00",
+    endDate: "25.05.2021 19:00",
+    ganttBarConfig: {
+      id: "7",
+      label: "I'm in a bundle",
+    }
+  }
+])
+const bars8 = ref<GanttBarObject[]>([
+  {
+    beginDate: "24.04.2021 13:00",
+    endDate: "25.05.2021 19:00",
+    ganttBarConfig: {
+      id: "8",
+      label: "I'm in a bundle",
+    }
+  }
+])
+const bars9 = ref<GanttBarObject[]>([
+  {
+    beginDate: "24.04.2021 13:00",
+    endDate: "25.05.2021 19:00",
+    ganttBarConfig: {
+      id: "9",
+      label: "I'm in a bundle",
+    }
+  }
+])
+const bars10 = ref<GanttBarObject[]>([
+  {
+    beginDate: "24.04.2021 13:00",
+    endDate: "25.05.2021 19:00",
+    ganttBarConfig: {
+      id: "10",
+      label: "I'm in a bundle",
+    }
+  }
+])
+const bars11 = ref<GanttBarObject[]>([
+  {
+    beginDate: "24.04.2021 13:00",
+    endDate: "25.05.2021 19:00",
+    ganttBarConfig: {
+      id: "11",
+      label: "I'm in a bundle",
     }
   }
 ])
 
 const bars2 = ref([
   {
-    beginDate: "24.04.2021 13:00",
+    beginDate: "21.04.2021 13:00",
     endDate: "25.05.2021 19:00",
     ganttBarConfig: {
       id: "1592311887",
       label: "I'm in a bundle",
       bundle: "bundle2",
+      hasHandles: true,
       style: {
-        background: "magenta"
+        background: "magenta",
       }
     }
   },
@@ -80,7 +182,7 @@ const bars2 = ref([
       label: "Oh hey",
       style: {
         background: "#69e064",
-        borderRadius: "15px",
+        borderRadius: "5px",
         color: "blue",
         fontSize: "10px"
       }
@@ -114,32 +216,35 @@ const deleteBar = () => {
   }
 }
 
+const getMonth = (changeType: string) => {
+  //console.log("cambie", changeType)
+}
 const onClickBar = (bar: GanttBarObject, e: MouseEvent, datetime?: string) => {
-  console.log("click-bar", bar, e, datetime)
+  //console.log("click-bar", bar, e, datetime)
 }
 
 const onMousedownBar = (bar: GanttBarObject, e: MouseEvent, datetime?: string) => {
-  console.log("mousedown-bar", bar, e, datetime)
+  //console.log("mousedown-bar", bar, e, datetime)
 }
 
 const onMouseupBar = (bar: GanttBarObject, e: MouseEvent, datetime?: string) => {
-  console.log("mouseup-bar", bar, e, datetime)
+  //console.log("mouseup-bar", bar, e, datetime)
 }
 
 const onMouseenterBar = (bar: GanttBarObject, e: MouseEvent) => {
-  console.log("mouseenter-bar", bar, e)
+  //console.log("mouseenter-bar", bar, e)
 }
 
 const onMouseleaveBar = (bar: GanttBarObject, e: MouseEvent) => {
-  console.log("mouseleave-bar", bar, e)
+  //console.log("mouseleave-bar", bar, e)
 }
 
 const onDragstartBar = (bar: GanttBarObject, e: MouseEvent) => {
-  console.log("dragstart-bar", bar, e)
+  //console.log("dragstart-bar", bar, e)
 }
 
 const onDragBar = (bar: GanttBarObject, e: MouseEvent) => {
-  console.log("drag-bar", bar, e)
+  //console.log("drag-bar", bar, e)
 }
 
 const onDragendBar = (
@@ -147,10 +252,10 @@ const onDragendBar = (
   e: MouseEvent,
   movedBars?: Map<GanttBarObject, { oldStart: string; oldEnd: string }>
 ) => {
-  console.log("dragend-bar", bar, e, movedBars)
+  //console.log("dragend-bar", bar, e, movedBars)
 }
 
 const onContextmenuBar = (bar: GanttBarObject, e: MouseEvent, datetime?: string) => {
-  console.log("contextmenu-bar", bar, e, datetime)
+  //console.log("contextmenu-bar", bar, e, datetime)
 }
 </script>

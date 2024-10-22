@@ -88,6 +88,7 @@ const barContainerEl = inject(BAR_CONTAINER_KEY)
 
 const onMouseEvent = (e: MouseEvent) => {
   e.preventDefault()
+ // if (e.button != 0) { return }
   if (e.type === "mousedown") {
     prepareForDrag()
   }
@@ -138,6 +139,8 @@ onMounted(() => {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: "Arial", sans-serif; /* Cambia la fuente a Arial */
+  font-weight: bold; 
 }
 .g-gantt-bar-handle-left,
 .g-gantt-bar-handle-right {

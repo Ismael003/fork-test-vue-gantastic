@@ -8,11 +8,14 @@
     @mouseover="isHovering = true"
     @mouseleave="isHovering = false"
   >
-    <div class="g-gantt-row-label" :style="{ background: colors.primary, color: colors.text }">
-      <slot name="label">
-        {{ label }}
-      </slot>
-    </div>
+  <div class="rows-title">
+    <slot>
+          {{ label }}
+    </slot>
+    <div class="subtitle">
+   {{ subtitle }}
+  </div>
+  </div>
     <div ref="barContainer" class="g-gantt-row-bars-container" v-bind="$attrs">
       <transition-group name="bar-transition" tag="div">
         <g-gantt-bar v-for="bar in bars" :key="bar.ganttBarConfig.id" :bar="bar">
@@ -33,7 +36,8 @@ import GGanttBar from "./GGanttBar.vue"
 import { BAR_CONTAINER_KEY } from "../provider/symbols"
 
 const props = defineProps<{
-  label: string
+  label: string,
+  subtitle: string,
   bars: GanttBarObject[]
   highlightOnHover?: boolean
 }>()
@@ -83,24 +87,6 @@ const onDrop = (e: MouseEvent) => {
   width: 100%;
   border-bottom: 1px solid #eaeaea;
 }
-
-.g-gantt-row-label {
-  position: absolute;
-  top: 0;
-  left: 0px;
-  padding: 0px 8px;
-  display: flex;
-  align-items: center;
-  height: 60%;
-  min-height: 20px;
-  font-size: 0.8em;
-  font-weight: bold;
-  border-bottom-right-radius: 6px;
-  background: #f2f2f2;
-  z-index: 3;
-  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.6);
-}
-
 .bar-transition-leave-active,
 .bar-transition-enter-active {
   transition: all 0.2s;
@@ -110,5 +96,30 @@ const onDrop = (e: MouseEvent) => {
 .bar-transition-leave-to {
   transform: scale(0.8);
   opacity: 0;
+}
+.rows-title {
+  position: absolute;
+  height: 96%;
+  width: 100px;
+  min-height: 20px;
+  border-bottom-right-radius: 0px;
+  background: #fffefe;
+  display: flex;
+  flex-direction: column; /* Cambiamos a dirección de columna para apilar elementos verticalmente */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: "Arial", sans-serif; /* Cambia la fuente a Arial */
+  font-size: 12px;
+  font-weight: bold; 
+  color: #616060;
+  z-index: 3;
+}
+.subtitle {
+  margin-top: 3px; /* Espacio entre el texto principal y el subtítulo */
+  font-size: 12px; /* Establece el tamaño de fuente del subtítulo */
+  font-family: "Arial", sans-serif; 
+  font-weight: normal;
+  color: #888;
 }
 </style>
